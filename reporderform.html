@@ -1,0 +1,2465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AmeriDex Order Form Pro</title>
+<style>
+    :root {
+        --bg-page: #f5f7fa;
+        --bg-card: #ffffff;
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --primary-soft: #eff6ff;
+        --border-subtle: #e5e7eb;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --danger: #dc2626;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+        --radius-card: 14px;
+        --radius-field: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background-color: var(--bg-page);
+        color: var(--text-main);
+        line-height: 1.5;
+    }
+
+    .page-shell {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 1.5rem 1.25rem 2.5rem;
+    }
+
+    header.app-header {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: #fff;
+        padding: 2.4rem 1.75rem 2.6rem;
+        border-radius: 0 0 var(--radius-card) var(--radius-card);
+        box-shadow: var(--shadow-soft);
+        text-align: center;
+    }
+
+    header.app-header img {
+        max-width: 220px;
+        height: auto;
+        display: block;
+        margin: 0 auto 0.75rem;
+    }
+
+    header.app-header h1 {
+        margin: 0.25rem 0 0.5rem;
+        font-size: 1.9rem;
+        letter-spacing: 0.03em;
+    }
+
+    header.app-header p.header-sub {
+        margin: 0.15rem 0 0;
+        font-size: 0.88rem;
+        color: rgba(249, 250, 251, 0.9);
+    }
+
+    main { margin-top: 1.5rem; }
+
+    .card {
+        background: var(--bg-card);
+        border-radius: var(--radius-card);
+        padding: 1.75rem;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .card-header {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+        padding-bottom: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+    }
+
+    .card-subtitle {
+        margin: 0.2rem 0 0;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+    }
+
+    .progress-badge {
+        display: inline-block;
+        background: var(--success);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .progress-badge.incomplete {
+        background: var(--warning);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.9rem 1.25rem;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .field-row-2 {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.9rem 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .field-row-2 {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        }
+    }
+
+    label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .required-indicator {
+        color: var(--danger);
+        margin-left: 0.15rem;
+    }
+
+    .help-text {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 0.2rem;
+        line-height: 1.4;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.68rem 0.7rem;
+        border-radius: var(--radius-field);
+        border: 1px solid var(--border-subtle);
+        font-size: 0.94rem;
+        color: var(--text-main);
+        background-color: #ffffff;
+        transition: border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.22);
+        background-color: #f9fafb;
+    }
+
+    textarea {
+        min-height: 90px;
+        resize: vertical;
+    }
+
+    .error {
+        font-size: 0.78rem;
+        color: var(--danger);
+        margin-top: 0.1rem;
+    }
+
+    .hint {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        margin-top: 0.15rem;
+    }
+
+    .inline-checks {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .check-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .check-row input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .note-inline {
+        margin-left: 1.6rem;
+        font-size: 0.82rem;
+        color: #b45309;
+    }
+
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .color-card {
+        border: 2px solid transparent;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .color-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .color-card.selected {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    .color-card img {
+        width: 100%;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .color-card-label {
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-top: 0.4rem;
+        color: var(--text-main);
+    }
+
+    .comparison-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .comparison-panel {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .color-preview {
+        text-align: center;
+    }
+
+    .color-preview h4 {
+        margin-top: 0;
+        font-size: 0.9rem;
+    }
+
+    .color-preview img {
+        width: 100%;
+        max-width: 200px;
+        border-radius: 10px;
+        border: 2px solid var(--border-subtle);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    thead { background-color: #f9fafb; }
+
+    th,
+    td {
+        border: 1px solid var(--border-subtle);
+        padding: 0.55rem 0.5rem;
+        vertical-align: top;
+    }
+
+    th {
+        font-weight: 600;
+        color: #4b5563;
+        text-align: left;
+        font-size: 0.84rem;
+    }
+
+    th.numeric,
+    td.numeric {
+        text-align: right;
+    }
+
+    td input,
+    td select {
+        font-size: 0.86rem;
+        padding: 0.4rem 0.45rem;
+        border-radius: 6px;
+    }
+
+    td .qty-input { max-width: 70px; }
+    td .len-input { max-width: 120px; }
+    td .price-input { max-width: 110px; }
+    td .desc-input { 
+        width: 100%; 
+        margin-top: 0.4rem;
+        font-size: 0.82rem;
+    }
+
+    .length-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .length-wrapper select {
+        flex: 1;
+    }
+
+    .length-wrapper input {
+        width: 60px;
+    }
+
+    .footage-display {
+        font-size: 0.75rem;
+        color: var(--primary);
+        font-weight: 600;
+        margin-top: 0.25rem;
+    }
+
+    .default-price-hint {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 0.2rem;
+    }
+
+    #mobile-items-container {
+        display: none;
+    }
+
+    .line-item-card {
+        background: white;
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .line-item-card h4 {
+        margin: 0 0 1rem 0;
+        font-size: 0.95rem;
+    }
+
+    .line-item-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .line-item-row.full {
+        grid-template-columns: 1fr;
+    }
+
+    .line-item-card-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .preview-img {
+        width: 34px;
+        height: 34px;
+        object-fit: cover;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-left: 0.45rem;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+    }
+
+    .table-actions-cell {
+        text-align: center;
+        width: 40px;
+    }
+
+    .btn-remove-row {
+        background-color: #fee2e2;
+        color: #b91c1c;
+        border-radius: 999px;
+        border: none;
+        padding: 0.18rem 0.55rem;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .btn-remove-row:hover { background-color: #fecaca; }
+
+    .btn-undo {
+        background-color: #fef3c7;
+        color: #92400e;
+        border-radius: 999px;
+        border: none;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.85rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+    }
+
+    .btn-undo:hover { background-color: #fed7aa; }
+
+    .btn-add-row {
+        margin-top: 0.9rem;
+        font-size: 0.88rem;
+        padding-inline: 1rem;
+    }
+
+    .total-bar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0.9rem 1.1rem;
+        border-radius: var(--radius-card);
+        background: #f9fafb;
+        border: 1px solid var(--border-subtle);
+    }
+
+    .total-label {
+        font-size: 0.92rem;
+        color: #4b5563;
+        margin-right: 0.4rem;
+    }
+
+    .total-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1e40af;
+    }
+
+    .fastener-block {
+        margin-top: 0.9rem;
+        padding: 0.7rem 0.8rem;
+        background-color: var(--primary-soft);
+        border-radius: 10px;
+        border: 1px dashed #bfdbfe;
+        font-size: 0.85rem;
+        color: #1d4ed8;
+    }
+
+    .fastener-warning {
+        color: #b91c1c;
+        font-size: 0.8rem;
+        margin-top: 0.45rem;
+    }
+
+    .actions-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        border-radius: 999px;
+        padding: 0.7rem 1.6rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: #ffffff;
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+    }
+
+    .btn-primary:hover { background-color: var(--primary-dark); }
+
+    .btn-outline {
+        background-color: #ffffff;
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+
+    .btn-outline:hover { background-color: #eff6ff; }
+
+    .btn-ghost {
+        background-color: transparent;
+        color: #374151;
+        border-color: #d1d5db;
+    }
+
+    .btn-ghost:hover { background-color: #f9fafb; }
+
+    .btn-success {
+        background-color: var(--success);
+        color: #ffffff;
+    }
+
+    .btn-success:hover { background-color: #15803d; }
+
+    .btn-sm {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .success-banner {
+        margin-top: 0.85rem;
+        padding: 0.65rem 0.9rem;
+        border-radius: 10px;
+        background-color: #ecfdf3;
+        color: #166534;
+        font-size: 0.84rem;
+        border: 1px solid #bbf7d0;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(15, 23, 42, 0.55);
+        z-index: 50;
+        justify-content: center;
+        align-items: center;
+        padding: 1.25rem;
+        overflow-y: auto;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: #ffffff;
+        padding: 1.25rem;
+        border-radius: 12px;
+        max-width: 90%;
+        max-height: 90vh;
+        text-align: center;
+        position: relative;
+        box-shadow: var(--shadow-soft);
+        overflow-y: auto;
+    }
+
+    .modal-content img {
+        max-width: 100%;
+        max-height: 70vh;
+        border-radius: 10px;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #6b7280;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+    }
+
+    .modal-close:hover { color: #111827; }
+
+    .review-modal-content {
+        text-align: left;
+        max-width: 600px;
+    }
+
+    .review-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .review-section h3 {
+        margin: 0 0 0.75rem 0;
+        font-size: 1rem;
+        color: var(--primary);
+    }
+
+    .review-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .review-item-label {
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    .review-total {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 2px solid var(--primary);
+    }
+
+    footer.app-footer {
+        text-align: center;
+        padding: 1.5rem 1.25rem 0.5rem;
+        font-size: 0.83rem;
+        color: var(--text-muted);
+    }
+
+    footer.app-footer a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    footer.app-footer a:hover { text-decoration: underline; }
+
+    @media (min-width: 769px) {
+        #line-items th:nth-child(1),
+        #line-items td:nth-child(1) { width: 26%; }
+        #line-items th:nth-child(2),
+        #line-items td:nth-child(2) { width: 14%; }
+        #line-items th:nth-child(3),
+        #line-items td:nth-child(3) { width: 14%; }
+        #line-items th:nth-child(4),
+        #line-items td:nth-child(4) { width: 8%; }
+        #line-items th:nth-child(5),
+        #line-items td:nth-child(5) { width: 14%; }
+        #line-items th:nth-child(6),
+        #line-items td:nth-child(6) { width: 12%; }
+        #line-items th:nth-child(7),
+        #line-items td:nth-child(7) { width: 6%; }
+    }
+
+    @media (max-width: 768px) {
+        header.app-header {
+            border-radius: 0 0 10px 10px;
+            padding-inline: 1.25rem;
+        }
+        .card { padding-inline: 1.2rem; }
+
+        #desktop-table-container {
+            display: none;
+        }
+
+        .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+    }
+
+    /* Dropdown menu for print options */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 -8px 16px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        z-index: 10;
+        margin-bottom: 8px;
+        overflow: hidden;
+    }
+
+    .dropdown-content button {
+        width: 100%;
+        padding: 12px 16px;
+        border: none;
+        background: white;
+        text-align: left;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        transition: background-color 0.15s;
+    }
+
+    .dropdown-content button:hover {
+        background-color: var(--primary-soft);
+    }
+
+    .dropdown-content button:not(:last-child) {
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    /* Print Preview Modal Styles */
+    .print-preview-modal {
+        max-width: 800px;
+        width: 95%;
+        text-align: left;
+    }
+
+    .print-preview-content {
+        background: white;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        margin: 1rem 0;
+        max-height: 60vh;
+        overflow-y: auto;
+        font-family: "Times New Roman", serif;
+    }
+
+    .print-preview-content h1 {
+        color: #2563eb;
+        border-bottom: 2px solid #2563eb;
+        padding-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .print-preview-content h2 {
+        color: #374151;
+        font-size: 1.1rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .print-preview-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+    }
+
+    .print-preview-content th,
+    .print-preview-content td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .print-preview-content th {
+        background: #f3f4f6;
+    }
+
+    .print-preview-content .total-row {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .print-preview-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    /* Email fallback notice */
+    .email-fallback-notice {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: #92400e;
+    }
+
+    .email-fallback-notice p {
+        margin: 0 0 0.5rem 0;
+    }
+
+    .email-fallback-notice .email-link {
+        color: var(--primary);
+        font-weight: 600;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<div class="page-shell">
+    <header class="app-header">
+        <img src="colors/AmeriDex.png" alt="AmeriDex Logo">
+        <h1>AmeriDex Order Form Pro</h1>
+        <p class="header-sub">
+            AmeriDex System Boards pricing includes integrated Dexerdry. Use standalone Dexerdry only for non-system applications.
+        </p>
+    </header>
+
+    <main>
+        <form id="order-form">
+
+            <!-- Deck Calculator -->
+            <section class="card" id="calculator">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Deck Calculator</h2>
+                        <p class="card-subtitle">Let us suggest the right boards for your deck size.</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field-row-2">
+                        <div class="field">
+                            <label for="deck-len">Deck Length (ft)<span class="required-indicator">*</span></label>
+                            <input type="number" id="deck-len" step="0.1" min="0">
+                            <div class="help-text">Total length of your deck</div>
+                        </div>
+                        <div class="field">
+                            <label for="deck-wid">Deck Width (ft)<span class="required-indicator">*</span></label>
+                            <input type="number" id="deck-wid" step="0.1" min="0">
+                            <div class="help-text">Total width of your deck</div>
+                        </div>
+                    </div>
+
+                    <div class="field-row-2">
+                        <div class="field">
+                            <label for="orientation">Board Orientation</label>
+                            <select id="orientation">
+                                <option value="parallel">Parallel to Length</option>
+                                <option value="perpendicular" selected>Perpendicular to Length</option>
+                            </select>
+                            <div class="help-text">Direction boards run across deck</div>
+                        </div>
+                        <div class="field" style="align-self:flex-end;">
+                            <button type="button" class="btn btn-outline" id="calc-btn">Calculate & Suggest</button>
+                        </div>
+                    </div>
+
+                    <div id="calc-result" class="hint" style="margin-top:0.65rem;"></div>
+                </div>
+            </section>
+
+            <!-- Color Selection Panel -->
+            <section class="card" id="colors">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Select Colors</h2>
+                        <p class="card-subtitle">Preview and compare available color options.</p>
+                    </div>
+                </div>
+
+                <div class="color-grid" id="color-grid"></div>
+
+                <div class="comparison-panel">
+                    <div class="color-preview">
+                        <h4>Color 1</h4>
+                        <img id="color1-preview" src="colors/Driftwood.png" alt="Color 1">
+                        <div id="color1-name" style="margin-top: 0.5rem; font-weight: 600;">Driftwood</div>
+                    </div>
+                    <div class="color-preview">
+                        <h4>Color 2 (Compare)</h4>
+                        <img id="color2-preview" src="colors/Khaki.png" alt="Color 2">
+                        <div id="color2-name" style="margin-top: 0.5rem; font-weight: 600;">Khaki</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer -->
+            <section class="card" id="customer">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Customer Information</h2>
+                        <p class="card-subtitle">Where this order will be used and who we should contact.</p>
+                    </div>
+                    <span class="progress-badge incomplete" id="cust-badge">0/4</span>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field-row-2">
+                        <div class="field">
+                            <label for="cust-name">Name<span class="required-indicator">*</span></label>
+                            <input type="text" id="cust-name" required>
+                            <div class="error" id="err-name"></div>
+                        </div>
+                        <div class="field">
+                            <label for="cust-company">Company</label>
+                            <input type="text" id="cust-company">
+                            <div class="error" id="err-company"></div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="cust-address">Address<span class="required-indicator">*</span></label>
+                        <textarea id="cust-address" rows="3" required></textarea>
+                        <div class="error" id="err-address"></div>
+                    </div>
+
+                    <div class="field-row-2">
+                        <div class="field">
+                            <label for="cust-phone">Phone<span class="required-indicator">*</span></label>
+                            <input type="tel" id="cust-phone" required>
+                            <div class="error" id="err-phone"></div>
+                        </div>
+                        <div class="field">
+                            <label for="cust-email">Email<span class="required-indicator">*</span></label>
+                            <input type="email" id="cust-email" required>
+                            <div class="error" id="err-email"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order -->
+            <section class="card" id="order">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Order Details</h2>
+                        <p class="card-subtitle">Deck layout, boards, and special requirements.</p>
+                    </div>
+                </div>
+
+                <div class="inline-checks">
+                    <div class="check-row">
+                        <input type="checkbox" id="pic-frame">
+                        <label for="pic-frame">Picture Framing</label>
+                    </div>
+                    <div id="pic-frame-note" class="note-inline" style="display:none;">Add Solid Edge boards to frame the deck perimeter.</div>
+
+                    <div class="check-row" style="margin-top:0.2rem;">
+                        <input type="checkbox" id="stairs">
+                        <label for="stairs">Stairs</label>
+                    </div>
+                    <div id="stairs-note" class="note-inline" style="display:none;">Add Solid Edge boards for stair treads and risers.</div>
+                </div>
+
+                <div id="fastener-hint" class="fastener-block" style="display:none;"></div>
+
+                <!-- Desktop Table View -->
+                <div id="desktop-table-container">
+                    <table id="line-items">
+                        <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Color</th>
+                            <th>Length</th>
+                            <th class="numeric">Qty</th>
+                            <th class="numeric">Unit Price</th>
+                            <th class="numeric">Subtotal</th>
+                            <th class="table-actions-cell"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Card View -->
+                <div id="mobile-items-container"></div>
+
+                <button type="button" class="btn btn-outline btn-add-row" id="add-row">+ Add Line Item</button>
+
+                <!-- Undo Button -->
+                <button type="button" class="btn-undo" id="undo-btn" style="display:none;">↶ Undo Last Deletion</button>
+
+                <div style="margin-top:1.4rem;" class="form-grid">
+                    <div class="field">
+                        <label for="special-instr">Special Instructions / Notes for Production</label>
+                        <textarea id="special-instr" rows="3"></textarea>
+                    </div>
+                    <div class="field internal-only">
+                        <label for="internal-notes">Internal Sales Rep Notes</label>
+                        <textarea id="internal-notes" rows="2"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shipping -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Shipping & Delivery</h2>
+                        <p class="card-subtitle">Delivery details if different from the customer information.</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="ship-addr">Shipping Address (if different)</label>
+                        <textarea id="ship-addr" rows="3"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="del-date">Preferred Delivery Date</label>
+                        <input type="date" id="del-date">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Total -->
+            <section class="card">
+                <div class="total-bar">
+                    <span class="total-label">Estimated Total</span>
+                    <span class="total-value" id="grand-total">$0.00</span>
+                </div>
+            </section>
+
+            <!-- Actions -->
+            <section class="card" style="text-align:center;">
+                <div class="actions-row">
+                    <button type="button" class="btn btn-ghost" id="reset">Reset Form</button>
+
+                    <!-- Print Dropdown -->
+                    <div class="dropdown" id="print-dropdown">
+                        <button type="button" class="btn btn-outline" id="print-btn">Print / Export</button>
+                        <div class="dropdown-content">
+                            <button type="button" id="print-customer">Customer Quote</button>
+                            <button type="button" id="print-internal">Internal Order Form</button>
+                            <button type="button" id="export-pdf">Export as PDF</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="review-btn">Review & Send</button>
+                </div>
+                <div id="success-msg" class="success-banner" style="display:none;">
+                    Order copied to clipboard and email client opened.
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <!-- Color Preview Modal -->
+    <div id="colorModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="colorName">
+        <div class="modal-content">
+            <button type="button" class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+            <img id="colorLarge" src="" alt="Color Preview">
+            <div id="colorName" style="margin-top:0.75rem;font-weight:600;"></div>
+        </div>
+    </div>
+
+    <!-- Order Review Modal -->
+    <div id="reviewModal" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-content review-modal-content">
+            <button type="button" class="modal-close" id="review-close" aria-label="Close">&times;</button>
+            <h2 style="margin-top: 0; color: var(--primary);">Review Your Order</h2>
+
+            <div class="review-section">
+                <h3>Customer Details</h3>
+                <div class="review-item">
+                    <span class="review-item-label">Name:</span>
+                    <span id="review-name"></span>
+                </div>
+                <div class="review-item">
+                    <span class="review-item-label">Email:</span>
+                    <span id="review-email"></span>
+                </div>
+                <div class="review-item">
+                    <span class="review-item-label">Phone:</span>
+                    <span id="review-phone"></span>
+                </div>
+            </div>
+
+            <div class="review-section">
+                <h3>Line Items</h3>
+                <div id="review-items"></div>
+            </div>
+
+            <div class="review-section">
+                <div class="review-total">
+                    Estimated Total: <span id="review-total">$0.00</span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="btn btn-ghost" id="review-back">Back to Edit</button>
+                <button type="button" class="btn btn-outline" id="review-copy">Copy to Clipboard</button>
+                <button type="button" class="btn btn-primary" id="review-submit">Send Order</button>
+            </div>
+
+            <div id="email-fallback" class="email-fallback-notice" style="display: none;">
+                <p><strong>Order copied to clipboard!</strong></p>
+                <p>If your email client didn't open, please:</p>
+                <p>1. Open your email manually</p>
+                <p>2. Send to: <span class="email-link">orders@ameridex.com</span></p>
+                <p>3. Paste (Ctrl+V / Cmd+V) the order into the email body</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Preview Modal -->
+    <div id="printPreviewModal" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-content print-preview-modal">
+            <button type="button" class="modal-close" id="print-preview-close" aria-label="Close">&times;</button>
+            <h2 style="margin-top: 0; color: var(--primary);" id="print-preview-title">Print Preview</h2>
+            <div class="print-preview-content" id="print-preview-content"></div>
+            <div class="print-preview-actions">
+                <button type="button" class="btn btn-ghost" id="print-preview-cancel">Cancel</button>
+                <button type="button" class="btn btn-primary" id="print-preview-print">Print</button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+// Product Configuration
+const PRODUCT_CONFIG = {
+    categories: {
+        decking: {
+            label: "Decking Boards",
+            products: {
+                system: {
+                    name: "AmeriDex System Boards (Grooved + Dexerdry included)",
+                    price: 8.00,
+                    isFt: true,
+                    hasColor: true,
+                    lengthType: "board",
+                    help: "Premium option with grooved boards and integrated Dexerdry sealing."
+                },
+                grooved: {
+                    name: "Grooved Deck Boards (no Dexerdry)",
+                    price: 6.00,
+                    isFt: true,
+                    hasColor: true,
+                    lengthType: "board",
+                    help: "Grooved boards without integrated sealing."
+                },
+                solid: {
+                    name: "Solid Edge Deck Boards",
+                    price: 6.00,
+                    isFt: true,
+                    hasColor: true,
+                    lengthType: "board",
+                    help: "For picture framing or stair construction."
+                }
+            }
+        },
+        sealing: {
+            label: "Sealing & Protection",
+            products: {
+                dexerdry: {
+                    name: "Dexerdry Seals (standalone)",
+                    price: 2.00,
+                    isFt: true,
+                    hasColor: false,
+                    lengthType: "coil",
+                    help: "Standalone sealing. 240 ft or 50 ft boxes."
+                }
+            }
+        },
+        fasteners: {
+            label: "Fasteners & Hardware",
+            products: {
+                screws: {
+                    name: "Epoxy-Coated Screws",
+                    price: 37.00,
+                    isFt: false,
+                    hasColor: false,
+                    help: "Per box (375 screws)."
+                },
+                plugs: {
+                    name: "Color-Matching Plugs",
+                    price: 33.79,
+                    isFt: false,
+                    hasColor: false,
+                    help: "Per box."
+                }
+            }
+        },
+        custom: {
+            label: "Custom Items",
+            products: {
+                custom: {
+                    name: "Custom / Manual Item",
+                    price: 0,
+                    isFt: false,
+                    hasColor: false,
+                    help: "Enter your own description and price."
+                }
+            }
+        }
+    }
+};
+
+// Flatten for easy access
+const PRODUCTS = {};
+Object.values(PRODUCT_CONFIG.categories).forEach(cat => {
+    Object.assign(PRODUCTS, cat.products);
+});
+
+const COLORS = ["Driftwood", "Khaki", "Slate", "Beachwood", "Chestnut", "Redwood", "Hazelnut"];
+
+const COLOR_IMAGES = {
+    Driftwood: "Driftwood.png",
+    Khaki: "Khaki.png",
+    Slate: "Slate.png",
+    Beachwood: "Beachwood.png",
+    Chestnut: "Chestnut.png",
+    Redwood: "Redwood.png",
+    Hazelnut: "Hazelnut.png"
+};
+
+// Length options
+const BOARD_LENGTHS = [12, 16, 20, "custom"];
+const COIL_LENGTHS = [240, 50];
+
+// Constants
+const BOARD_WIDTH_INCH = 5.5;
+const GAP_INCH = 0.125;
+const EFFECTIVE_FT = (BOARD_WIDTH_INCH + GAP_INCH) / 12;
+const WASTE = 1.10;
+const SCREWS_PER_BOX = 375;
+
+// State
+let lineItems = [];
+let deletedItems = [];
+let deckLengthFt = 0;
+let deckWidthFt = 0;
+let selectedColor1 = "Driftwood";
+let selectedColor2 = "Khaki";
+let currentPrintType = "customer";
+
+const tbody = document.querySelector("#line-items tbody");
+const modal = document.getElementById("colorModal");
+const reviewModal = document.getElementById("reviewModal");
+const printPreviewModal = document.getElementById("printPreviewModal");
+const modalImg = document.getElementById("colorLarge");
+const modalName = document.getElementById("colorName");
+
+// Responsive breakpoint detection
+function isMobileView() {
+    return window.innerWidth <= 768;
+}
+
+// Initialize color grid
+function initColorGrid() {
+    const grid = document.getElementById("color-grid");
+    grid.innerHTML = "";
+    COLORS.forEach(color => {
+        const card = document.createElement("div");
+        card.className = "color-card";
+        card.setAttribute("data-color", color);
+
+        const img = document.createElement("img");
+        img.src = `colors/${COLOR_IMAGES[color]}`;
+        img.alt = color;
+        img.onerror = () => { img.src = "https://via.placeholder.com/100x80?text=" + color; };
+
+        const label = document.createElement("div");
+        label.className = "color-card-label";
+        label.textContent = color;
+
+        card.appendChild(img);
+        card.appendChild(label);
+
+        card.addEventListener("click", () => {
+            selectedColor1 = color;
+            updateColorComparison();
+            updateColorSelection();
+        });
+
+        grid.appendChild(card);
+    });
+}
+
+function updateColorSelection() {
+    document.querySelectorAll(".color-card").forEach(card => {
+        card.classList.toggle("selected", card.getAttribute("data-color") === selectedColor1);
+    });
+}
+
+function updateColorComparison() {
+    document.getElementById("color1-preview").src = `colors/${COLOR_IMAGES[selectedColor1]}`;
+    document.getElementById("color1-name").textContent = selectedColor1;
+
+    const idx = COLORS.indexOf(selectedColor1);
+    selectedColor2 = COLORS[(idx + 1) % COLORS.length];
+    document.getElementById("color2-preview").src = `colors/${COLOR_IMAGES[selectedColor2]}`;
+    document.getElementById("color2-name").textContent = selectedColor2;
+}
+
+function updateCustomerProgress() {
+    const name = document.getElementById("cust-name").value.trim() ? 1 : 0;
+    const address = document.getElementById("cust-address").value.trim() ? 1 : 0;
+    const phone = document.getElementById("cust-phone").value.trim() ? 1 : 0;
+    const email = document.getElementById("cust-email").value.trim() ? 1 : 0;
+    const completed = name + address + phone + email;
+    const badge = document.getElementById("cust-badge");
+    badge.textContent = `${completed}/4`;
+    badge.classList.toggle("incomplete", completed !== 4);
+}
+
+["cust-name", "cust-address", "cust-phone", "cust-email"].forEach(id => {
+    document.getElementById(id).addEventListener("input", updateCustomerProgress);
+});
+
+document.getElementById("add-row").onclick = () => {
+    lineItems.push({
+        type: "system",
+        color: selectedColor1,
+        length: 16,
+        customLength: null,
+        qty: 1,
+        priceOverride: null,
+        customDesc: "",
+        customUnitPrice: 0
+    });
+    deletedItems = [];
+    render();
+    updateTotalAndFasteners();
+};
+
+document.getElementById("calc-btn").onclick = calculateAndSuggest;
+
+// Modal close handlers
+document.getElementById("modal-close").onclick = () => modal.classList.remove("active");
+document.getElementById("review-close").onclick = () => { 
+    reviewModal.classList.remove("active");
+    document.getElementById("email-fallback").style.display = "none";
+};
+document.getElementById("print-preview-close").onclick = () => printPreviewModal.classList.remove("active");
+document.getElementById("print-preview-cancel").onclick = () => printPreviewModal.classList.remove("active");
+
+window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        modal.classList.remove("active");
+        reviewModal.classList.remove("active");
+        printPreviewModal.classList.remove("active");
+        document.getElementById("print-dropdown").classList.remove("active");
+        document.getElementById("email-fallback").style.display = "none";
+    }
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.classList.remove("active");
+    if (e.target === reviewModal) {
+        reviewModal.classList.remove("active");
+        document.getElementById("email-fallback").style.display = "none";
+    }
+    if (e.target === printPreviewModal) printPreviewModal.classList.remove("active");
+
+    const dropdown = document.getElementById("print-dropdown");
+    if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("active");
+    }
+});
+
+document.getElementById("reset").onclick = () => {
+    if (!confirm("Clear the entire form?")) return;
+    lineItems = [];
+    deletedItems = [];
+    render();
+    updateTotalAndFasteners();
+    updateCustomerProgress();
+    ["cust-name", "cust-company", "cust-address", "cust-phone", "cust-email", "ship-addr", "del-date", "special-instr", "internal-notes", "deck-len", "deck-wid"].forEach(id => {
+        document.getElementById(id).value = "";
+    });
+    document.getElementById("pic-frame").checked = false;
+    document.getElementById("stairs").checked = false;
+    document.getElementById("pic-frame-note").style.display = "none";
+    document.getElementById("stairs-note").style.display = "none";
+    document.getElementById("fastener-hint").style.display = "none";
+    document.getElementById("fastener-hint").innerHTML = "";
+    document.getElementById("success-msg").style.display = "none";
+};
+
+// Print dropdown
+document.getElementById("print-btn").onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById("print-dropdown").classList.toggle("active");
+};
+
+document.getElementById("print-customer").onclick = () => {
+    document.getElementById("print-dropdown").classList.remove("active");
+    currentPrintType = "customer";
+    showPrintPreview("customer");
+};
+
+document.getElementById("print-internal").onclick = () => {
+    document.getElementById("print-dropdown").classList.remove("active");
+    currentPrintType = "internal";
+    showPrintPreview("internal");
+};
+
+document.getElementById("export-pdf").onclick = () => {
+    document.getElementById("print-dropdown").classList.remove("active");
+    generatePDF();
+};
+
+document.getElementById("print-preview-print").onclick = () => {
+    printFromPreview();
+};
+
+function showPrintPreview(type) {
+    const title = type === "customer" ? "Customer Quote Preview" : "Internal Order Form Preview";
+    document.getElementById("print-preview-title").textContent = title;
+    document.getElementById("print-preview-content").innerHTML = generatePrintHTML(type);
+    printPreviewModal.classList.add("active");
+}
+
+function generatePrintHTML(type) {
+    const today = new Date().toLocaleDateString();
+    const includeInternal = type === "internal";
+
+    let html = `
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h1 style="margin: 0;">AmeriDex ${type === "customer" ? "Quote" : "Order Form"}</h1>
+            <p style="color: #666; margin: 0.5rem 0;">Date: ${today}</p>
+        </div>
+
+        <h2>Customer Information</h2>
+        <table>
+            <tr><td style="width: 120px;"><strong>Name:</strong></td><td>${document.getElementById("cust-name").value}</td></tr>
+            ${document.getElementById("cust-company").value ? `<tr><td><strong>Company:</strong></td><td>${document.getElementById("cust-company").value}</td></tr>` : ""}
+            <tr><td><strong>Address:</strong></td><td>${document.getElementById("cust-address").value.replace(/\n/g, "<br>")}</td></tr>
+            <tr><td><strong>Phone:</strong></td><td>${document.getElementById("cust-phone").value}</td></tr>
+            <tr><td><strong>Email:</strong></td><td>${document.getElementById("cust-email").value}</td></tr>
+        </table>
+    `;
+
+    if (document.getElementById("pic-frame").checked || document.getElementById("stairs").checked) {
+        html += `<h2>Options</h2><ul>`;
+        if (document.getElementById("pic-frame").checked) html += `<li>Picture Framing Required</li>`;
+        if (document.getElementById("stairs").checked) html += `<li>Stairs Required</li>`;
+        html += `</ul>`;
+    }
+
+    html += `
+        <h2>Order Items</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Color</th>
+                    <th>Length/Size</th>
+                    <th style="text-align: right;">Qty</th>
+                    <th style="text-align: right;">Unit Price</th>
+                    <th style="text-align: right;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    lineItems.forEach((item, i) => {
+        const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+        const price = getItemPrice(item);
+        const sub = getItemSubtotal(item);
+        let desc = item.type === "custom" && item.customDesc ? item.customDesc : prod.name;
+
+        let lengthDisplay = "";
+        if (item.type === "dexerdry") {
+            lengthDisplay = item.length + " ft box";
+        } else if (prod.isFt) {
+            const len = item.length === "custom" ? item.customLength : item.length;
+            lengthDisplay = len + " ft";
+        }
+
+        html += `
+            <tr>
+                <td>${desc}</td>
+                <td>${prod.hasColor ? (item.color || "") : ""}</td>
+                <td>${lengthDisplay}</td>
+                <td style="text-align: right;">${item.qty}</td>
+                <td style="text-align: right;">$${price.toFixed(2)}${prod.isFt ? "/ft" : ""}</td>
+                <td style="text-align: right;">$${sub.toFixed(2)}</td>
+            </tr>
+        `;
+
+        if (item.type === "dexerdry") {
+            const totalFt = item.length * item.qty;
+            html += `<tr style="background: #f0f9ff;"><td colspan="6" style="font-size: 0.9em; color: #1d4ed8; padding-left: 2rem;">Total Dexerdry: ${totalFt} ft</td></tr>`;
+        }
+    });
+
+    html += `
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="5" style="text-align: right;"><strong>Estimated Total:</strong></td>
+                    <td style="text-align: right;"><strong>${document.getElementById("grand-total").textContent}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    `;
+
+    const special = document.getElementById("special-instr").value;
+    if (special) {
+        html += `<h2>Special Instructions</h2><p>${special.replace(/\n/g, "<br>")}</p>`;
+    }
+
+    if (includeInternal) {
+        const internal = document.getElementById("internal-notes").value;
+        if (internal) {
+            html += `<h2 style="color: #b91c1c;">Internal Notes (Sales Rep)</h2><p style="background: #fef2f2; padding: 0.75rem; border-radius: 6px;">${internal.replace(/\n/g, "<br>")}</p>`;
+        }
+    }
+
+    const ship = document.getElementById("ship-addr").value;
+    if (ship) html += `<h2>Shipping Address</h2><p>${ship.replace(/\n/g, "<br>")}</p>`;
+
+    const delDate = document.getElementById("del-date").value;
+    if (delDate) html += `<p><strong>Preferred Delivery Date:</strong> ${delDate}</p>`;
+
+    html += `<div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; text-align: center; color: #666;"><p>Thank you for choosing AmeriDex!<br>www.ameridex.com</p></div>`;
+
+    return html;
+}
+
+function printFromPreview() {
+    const content = document.getElementById("print-preview-content").innerHTML;
+    const printWindow = window.open("", "_blank", "width=800,height=600");
+
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>AmeriDex ${currentPrintType === "customer" ? "Quote" : "Order Form"}</title>
+            <style>
+                body { font-family: "Times New Roman", serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+                h1 { color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 0.5rem; }
+                h2 { color: #374151; font-size: 1.1rem; margin-top: 1.5rem; }
+                table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background: #f3f4f6; }
+                .total-row { font-weight: bold; background: #f9fafb; }
+                @media print { body { padding: 0; } }
+            </style>
+        </head>
+        <body>${content}</body>
+        </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => { printWindow.print(); printWindow.close(); }, 250);
+    printPreviewModal.classList.remove("active");
+}
+
+document.getElementById("review-btn").onclick = showReview;
+document.getElementById("review-submit").onclick = submitOrder;
+document.getElementById("review-back").onclick = () => {
+    reviewModal.classList.remove("active");
+    document.getElementById("email-fallback").style.display = "none";
+};
+
+document.getElementById("review-copy").onclick = () => {
+    const orderText = generateOrderText(true);
+    navigator.clipboard.writeText(orderText).then(() => {
+        const btn = document.getElementById("review-copy");
+        btn.textContent = "Copied!";
+        btn.classList.add("btn-success");
+        btn.classList.remove("btn-outline");
+        setTimeout(() => {
+            btn.textContent = "Copy to Clipboard";
+            btn.classList.remove("btn-success");
+            btn.classList.add("btn-outline");
+        }, 2000);
+    }).catch(() => alert("Failed to copy."));
+};
+
+["pic-frame", "stairs"].forEach(id => {
+    document.getElementById(id).addEventListener("change", (e) => {
+        document.getElementById(id + "-note").style.display = e.target.checked ? "block" : "none";
+    });
+});
+
+function render() {
+    renderDesktop();
+    if (isMobileView()) {
+        renderMobile();
+        document.getElementById("mobile-items-container").style.display = "block";
+    } else {
+        document.getElementById("mobile-items-container").innerHTML = "";
+        document.getElementById("mobile-items-container").style.display = "none";
+    }
+}
+
+function renderDesktop() {
+    tbody.innerHTML = "";
+    lineItems.forEach((item, i) => {
+        const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+        const row = document.createElement("tr");
+
+        // Product column
+        let td = document.createElement("td");
+        const sel = document.createElement("select");
+
+        Object.entries(PRODUCT_CONFIG.categories).forEach(([catKey, category]) => {
+            const optgroup = document.createElement("optgroup");
+            optgroup.label = category.label;
+            Object.entries(category.products).forEach(([prodKey, prodData]) => {
+                const opt = document.createElement("option");
+                opt.value = prodKey;
+                opt.textContent = prodData.name;
+                if (prodKey === item.type) opt.selected = true;
+                optgroup.appendChild(opt);
+            });
+            sel.appendChild(optgroup);
+        });
+
+        sel.onchange = () => {
+            item.type = sel.value;
+            item.priceOverride = null;
+            if (item.type !== "custom") {
+                item.customDesc = "";
+                item.customUnitPrice = 0;
+            }
+            if (item.type === "dexerdry") {
+                item.length = 240;
+            } else if (PRODUCTS[item.type].isFt) {
+                item.length = 16;
+                item.customLength = null;
+            } else {
+                item.length = null;
+            }
+            render();
+            updateTotalAndFasteners();
+        };
+        td.appendChild(sel);
+
+        // Custom description input
+        if (item.type === "custom") {
+            const descInput = document.createElement("input");
+            descInput.type = "text";
+            descInput.className = "desc-input";
+            descInput.placeholder = "Enter product description...";
+            descInput.value = item.customDesc || "";
+            descInput.oninput = e => { item.customDesc = e.target.value; };
+            td.appendChild(descInput);
+        } else {
+            const helpDiv = document.createElement("div");
+            helpDiv.className = "help-text";
+            helpDiv.textContent = prod.help || "";
+            td.appendChild(helpDiv);
+        }
+
+        row.appendChild(td);
+
+        // Color column
+        td = document.createElement("td");
+        if (prod.hasColor) {
+            const csel = document.createElement("select");
+            COLORS.forEach(c => {
+                const o = document.createElement("option");
+                o.value = c;
+                o.textContent = c;
+                if (c === item.color) o.selected = true;
+                csel.appendChild(o);
+            });
+
+            const prev = document.createElement("img");
+            prev.className = "preview-img";
+            prev.alt = "preview";
+            prev.title = "Click to enlarge";
+
+            function applyImage() {
+                const colorName = item.color || COLORS[0];
+                prev.src = "colors/" + (COLOR_IMAGES[colorName] || COLOR_IMAGES.Driftwood);
+            }
+
+            csel.onchange = e => {
+                item.color = e.target.value;
+                applyImage();
+                updateTotalAndFasteners();
+            };
+
+            td.appendChild(csel);
+            item.color = item.color || COLORS[0];
+            applyImage();
+
+            prev.onerror = () => { prev.src = "https://via.placeholder.com/34?text=?"; };
+            prev.onclick = () => {
+                modalImg.src = prev.src;
+                modalName.textContent = item.color || COLORS[0];
+                modal.classList.add("active");
+            };
+            td.appendChild(prev);
+        }
+        row.appendChild(td);
+
+        // Length column
+        td = document.createElement("td");
+
+        if (item.type === "dexerdry") {
+            const wrapper = document.createElement("div");
+            const lenSel = document.createElement("select");
+            lenSel.className = "len-input";
+
+            COIL_LENGTHS.forEach(len => {
+                const o = document.createElement("option");
+                o.value = len;
+                o.textContent = len + " ft box";
+                if (len === item.length) o.selected = true;
+                lenSel.appendChild(o);
+            });
+
+            lenSel.onchange = e => {
+                item.length = parseInt(e.target.value);
+                updateTotalAndFasteners();
+                render();
+            };
+
+            wrapper.appendChild(lenSel);
+
+            const footageDiv = document.createElement("div");
+            footageDiv.className = "footage-display";
+            footageDiv.id = "footage-" + i;
+            wrapper.appendChild(footageDiv);
+
+            td.appendChild(wrapper);
+        } else if (prod.isFt) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "length-wrapper";
+
+            const lenSel = document.createElement("select");
+            lenSel.style.flex = "1";
+
+            BOARD_LENGTHS.forEach(len => {
+                const o = document.createElement("option");
+                o.value = len;
+                o.textContent = len === "custom" ? "Custom" : len + " ft";
+                if (len === item.length) o.selected = true;
+                lenSel.appendChild(o);
+            });
+
+            lenSel.onchange = e => {
+                item.length = e.target.value === "custom" ? "custom" : parseInt(e.target.value);
+                render();
+                updateTotalAndFasteners();
+            };
+
+            wrapper.appendChild(lenSel);
+
+            if (item.length === "custom") {
+                const customInput = document.createElement("input");
+                customInput.type = "number";
+                customInput.placeholder = "ft";
+                customInput.value = item.customLength || "";
+                customInput.min = "1";
+                customInput.step = "0.5";
+                customInput.style.width = "60px";
+                customInput.oninput = e => {
+                    item.customLength = parseFloat(e.target.value) || 0;
+                    updateTotalAndFasteners();
+                };
+                wrapper.appendChild(customInput);
+            }
+
+            td.appendChild(wrapper);
+        }
+        row.appendChild(td);
+
+        // Qty column
+        td = document.createElement("td");
+        td.className = "numeric";
+        const qtyInput = document.createElement("input");
+        qtyInput.type = "number";
+        qtyInput.className = "qty-input";
+        qtyInput.value = item.qty;
+        qtyInput.min = "1";
+        qtyInput.step = "1";
+        qtyInput.oninput = e => {
+            item.qty = Math.max(1, parseInt(e.target.value) || 1);
+            updateTotalAndFasteners();
+        };
+        td.appendChild(qtyInput);
+        row.appendChild(td);
+
+        // Unit Price column - ALL items can have editable price
+        td = document.createElement("td");
+        td.className = "numeric";
+
+        const priceWrapper = document.createElement("div");
+
+        if (item.type === "custom") {
+            const priceInput = document.createElement("input");
+            priceInput.type = "number";
+            priceInput.className = "price-input";
+            priceInput.placeholder = "Price";
+            priceInput.value = item.customUnitPrice || "";
+            priceInput.step = "0.01";
+            priceInput.min = "0";
+            priceInput.oninput = e => {
+                item.customUnitPrice = parseFloat(e.target.value) || 0;
+                updateTotalAndFasteners();
+            };
+            priceWrapper.appendChild(priceInput);
+        } else {
+            const priceInput = document.createElement("input");
+            priceInput.type = "number";
+            priceInput.className = "price-input";
+            priceInput.placeholder = "$" + prod.price.toFixed(2);
+            priceInput.value = item.priceOverride != null ? item.priceOverride : "";
+            priceInput.step = "0.01";
+            priceInput.min = "0";
+            priceInput.oninput = e => {
+                const val = e.target.value.trim();
+                item.priceOverride = val === "" ? null : parseFloat(val) || 0;
+                updateTotalAndFasteners();
+            };
+            priceWrapper.appendChild(priceInput);
+
+            const hintDiv = document.createElement("div");
+            hintDiv.className = "default-price-hint";
+            hintDiv.textContent = "Default: $" + prod.price.toFixed(2) + (prod.isFt ? "/ft" : "");
+            priceWrapper.appendChild(hintDiv);
+        }
+
+        td.appendChild(priceWrapper);
+        row.appendChild(td);
+
+        // Subtotal column
+        td = document.createElement("td");
+        td.className = "numeric";
+        td.id = "sub-" + i;
+        row.appendChild(td);
+
+        // Remove button column
+        td = document.createElement("td");
+        td.className = "table-actions-cell";
+        const rmBtn = document.createElement("button");
+        rmBtn.type = "button";
+        rmBtn.className = "btn-remove-row";
+        rmBtn.innerHTML = "&times;";
+        rmBtn.title = "Remove item";
+        rmBtn.onclick = () => {
+            deletedItems.push(JSON.parse(JSON.stringify(item)));
+            lineItems.splice(i, 1);
+            render();
+            updateTotalAndFasteners();
+            updateUndoButton();
+        };
+        td.appendChild(rmBtn);
+        row.appendChild(td);
+
+        tbody.appendChild(row);
+    });
+}
+
+function renderMobile() {
+    const container = document.getElementById("mobile-items-container");
+    container.innerHTML = "";
+    lineItems.forEach((item, i) => {
+        const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+        const card = document.createElement("div");
+        card.className = "line-item-card";
+
+        const title = document.createElement("h4");
+        title.textContent = `Item ${i + 1}: ${item.type === "custom" && item.customDesc ? item.customDesc : prod.name}`;
+        card.appendChild(title);
+
+        // Product select
+        const productRow = document.createElement("div");
+        productRow.className = "line-item-row full";
+        const prodLabel = document.createElement("label");
+        prodLabel.textContent = "Product";
+        const prodSel = document.createElement("select");
+
+        Object.entries(PRODUCT_CONFIG.categories).forEach(([catKey, category]) => {
+            const optgroup = document.createElement("optgroup");
+            optgroup.label = category.label;
+            Object.entries(category.products).forEach(([prodKey, prodData]) => {
+                const opt = document.createElement("option");
+                opt.value = prodKey;
+                opt.textContent = prodData.name;
+                if (prodKey === item.type) opt.selected = true;
+                optgroup.appendChild(opt);
+            });
+            prodSel.appendChild(optgroup);
+        });
+
+        prodSel.onchange = () => {
+            item.type = prodSel.value;
+            item.priceOverride = null;
+            if (item.type !== "custom") {
+                item.customDesc = "";
+                item.customUnitPrice = 0;
+            }
+            if (item.type === "dexerdry") {
+                item.length = 240;
+            } else if (PRODUCTS[item.type].isFt) {
+                item.length = 16;
+                item.customLength = null;
+            } else {
+                item.length = null;
+            }
+            render();
+            updateTotalAndFasteners();
+        };
+
+        productRow.appendChild(prodLabel);
+        productRow.appendChild(prodSel);
+        card.appendChild(productRow);
+
+        // Custom description for custom items
+        if (item.type === "custom") {
+            const descRow = document.createElement("div");
+            descRow.className = "line-item-row full";
+            const descLabel = document.createElement("label");
+            descLabel.textContent = "Description";
+            const descInput = document.createElement("input");
+            descInput.type = "text";
+            descInput.placeholder = "Enter product description...";
+            descInput.value = item.customDesc || "";
+            descInput.oninput = e => { item.customDesc = e.target.value; };
+            descRow.appendChild(descLabel);
+            descRow.appendChild(descInput);
+            card.appendChild(descRow);
+        }
+
+        // Color
+        if (prod.hasColor) {
+            const colorRow = document.createElement("div");
+            colorRow.className = "line-item-row full";
+            const colorLabel = document.createElement("label");
+            colorLabel.textContent = "Color";
+            const colorSel = document.createElement("select");
+            COLORS.forEach(c => {
+                const o = document.createElement("option");
+                o.value = c;
+                o.textContent = c;
+                if (c === item.color) o.selected = true;
+                colorSel.appendChild(o);
+            });
+            colorSel.onchange = e => {
+                item.color = e.target.value;
+                updateTotalAndFasteners();
+            };
+            colorRow.appendChild(colorLabel);
+            colorRow.appendChild(colorSel);
+            card.appendChild(colorRow);
+        }
+
+        // Length and Qty row
+        const lengthQtyRow = document.createElement("div");
+        lengthQtyRow.className = "line-item-row";
+
+        if (item.type === "dexerdry") {
+            const lengthDiv = document.createElement("div");
+            const lengthLabel = document.createElement("label");
+            lengthLabel.textContent = "Box Size";
+            const lengthSel = document.createElement("select");
+            COIL_LENGTHS.forEach(len => {
+                const o = document.createElement("option");
+                o.value = len;
+                o.textContent = len + " ft box";
+                if (len === item.length) o.selected = true;
+                lengthSel.appendChild(o);
+            });
+            lengthSel.onchange = e => { 
+                item.length = parseInt(e.target.value); 
+                updateTotalAndFasteners(); 
+                render();
+            };
+            lengthDiv.appendChild(lengthLabel);
+            lengthDiv.appendChild(lengthSel);
+            lengthQtyRow.appendChild(lengthDiv);
+        } else if (prod.isFt) {
+            const lengthDiv = document.createElement("div");
+            const lengthLabel = document.createElement("label");
+            lengthLabel.textContent = "Length (ft)";
+            const lengthSel = document.createElement("select");
+            BOARD_LENGTHS.forEach(len => {
+                const o = document.createElement("option");
+                o.value = len;
+                o.textContent = len === "custom" ? "Custom" : len + " ft";
+                if (len === item.length) o.selected = true;
+                lengthSel.appendChild(o);
+            });
+            lengthSel.onchange = e => { 
+                item.length = e.target.value === "custom" ? "custom" : parseInt(e.target.value); 
+                render();
+                updateTotalAndFasteners(); 
+            };
+            lengthDiv.appendChild(lengthLabel);
+            lengthDiv.appendChild(lengthSel);
+
+            if (item.length === "custom") {
+                const customInput = document.createElement("input");
+                customInput.type = "number";
+                customInput.placeholder = "Enter length";
+                customInput.value = item.customLength || "";
+                customInput.min = "1";
+                customInput.style.marginTop = "0.5rem";
+                customInput.oninput = e => {
+                    item.customLength = parseFloat(e.target.value) || 0;
+                    updateTotalAndFasteners();
+                };
+                lengthDiv.appendChild(customInput);
+            }
+
+            lengthQtyRow.appendChild(lengthDiv);
+        }
+
+        const qtyDiv = document.createElement("div");
+        const qtyLabel = document.createElement("label");
+        qtyLabel.textContent = "Quantity";
+        const qtyInput = document.createElement("input");
+        qtyInput.type = "number";
+        qtyInput.value = item.qty;
+        qtyInput.min = "1";
+        qtyInput.oninput = e => { item.qty = Math.max(1, parseInt(e.target.value) || 1); updateTotalAndFasteners(); };
+        qtyDiv.appendChild(qtyLabel);
+        qtyDiv.appendChild(qtyInput);
+        lengthQtyRow.appendChild(qtyDiv);
+
+        card.appendChild(lengthQtyRow);
+
+        // Unit Price row (editable for all)
+        const priceRow = document.createElement("div");
+        priceRow.className = "line-item-row full";
+        const priceLabel = document.createElement("label");
+        priceLabel.textContent = item.type === "custom" ? "Unit Price" : `Unit Price (Default: $${prod.price.toFixed(2)}${prod.isFt ? "/ft" : ""})`;
+        const priceInput = document.createElement("input");
+        priceInput.type = "number";
+        priceInput.step = "0.01";
+        priceInput.min = "0";
+
+        if (item.type === "custom") {
+            priceInput.placeholder = "Enter price";
+            priceInput.value = item.customUnitPrice || "";
+            priceInput.oninput = e => {
+                item.customUnitPrice = parseFloat(e.target.value) || 0;
+                updateTotalAndFasteners();
+            };
+        } else {
+            priceInput.placeholder = "Leave blank for default";
+            priceInput.value = item.priceOverride != null ? item.priceOverride : "";
+            priceInput.oninput = e => {
+                const val = e.target.value.trim();
+                item.priceOverride = val === "" ? null : parseFloat(val) || 0;
+                updateTotalAndFasteners();
+            };
+        }
+
+        priceRow.appendChild(priceLabel);
+        priceRow.appendChild(priceInput);
+        card.appendChild(priceRow);
+
+        // Subtotal display
+        const subRow = document.createElement("div");
+        subRow.className = "line-item-row full";
+        subRow.id = "mobile-sub-" + i;
+        card.appendChild(subRow);
+
+        // Actions
+        const actionsDiv = document.createElement("div");
+        actionsDiv.className = "line-item-card-actions";
+        const rmBtn = document.createElement("button");
+        rmBtn.type = "button";
+        rmBtn.textContent = "Delete";
+        rmBtn.className = "btn btn-ghost btn-sm";
+        rmBtn.onclick = () => {
+            deletedItems.push(JSON.parse(JSON.stringify(item)));
+            lineItems.splice(i, 1);
+            render();
+            updateTotalAndFasteners();
+            updateUndoButton();
+        };
+        actionsDiv.appendChild(rmBtn);
+        card.appendChild(actionsDiv);
+
+        container.appendChild(card);
+    });
+}
+
+function updateUndoButton() {
+    const btn = document.getElementById("undo-btn");
+    if (deletedItems.length > 0) {
+        btn.style.display = "block";
+        btn.onclick = () => {
+            lineItems.push(deletedItems.pop());
+            render();
+            updateTotalAndFasteners();
+            updateUndoButton();
+        };
+    } else {
+        btn.style.display = "none";
+    }
+}
+
+function getItemLength(item) {
+    return item.length === "custom" ? (item.customLength || 0) : (item.length || 0);
+}
+
+function getItemPrice(item) {
+    const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+    if (item.type === "custom") return item.customUnitPrice || 0;
+    if (item.priceOverride != null && !Number.isNaN(item.priceOverride)) return item.priceOverride;
+    return prod.price;
+}
+
+function getItemSubtotal(item) {
+    const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+    const price = getItemPrice(item);
+
+    if (item.type === "dexerdry") {
+        return item.length * item.qty * price;
+    } else if (prod.isFt) {
+        return getItemLength(item) * (item.qty || 0) * price;
+    }
+    return (item.qty || 0) * price;
+}
+
+function updateTotalAndFasteners() {
+    let total = 0;
+    let totalGroovedBoards = 0;
+    let hasSystem = false;
+    let hasStandaloneDex = false;
+
+    lineItems.forEach((item, i) => {
+        const sub = getItemSubtotal(item);
+        total += sub;
+
+        const subCell = document.getElementById("sub-" + i);
+        if (subCell) subCell.textContent = "$" + sub.toFixed(2);
+
+        const mobileSubCell = document.getElementById("mobile-sub-" + i);
+        if (mobileSubCell) {
+            let subText = "Subtotal: $" + sub.toFixed(2);
+            if (item.type === "dexerdry") {
+                subText += ` (${item.length * item.qty} ft total)`;
+            }
+            mobileSubCell.textContent = subText;
+        }
+
+        const footageEl = document.getElementById("footage-" + i);
+        if (footageEl && item.type === "dexerdry") {
+            footageEl.textContent = `Total: ${item.length * item.qty} ft`;
+        }
+
+        if (["system", "grooved"].includes(item.type)) totalGroovedBoards += item.qty;
+        if (item.type === "system") hasSystem = true;
+        if (item.type === "dexerdry") hasStandaloneDex = true;
+    });
+
+    document.getElementById("grand-total").textContent = "$" + total.toFixed(2);
+
+    const hintEl = document.getElementById("fastener-hint");
+    let hintHtml = "";
+
+    if (totalGroovedBoards > 0 && deckLengthFt > 0) {
+        const joistCount = Math.floor(deckLengthFt * 12 / 16) + 1;
+        const boxesScrews = Math.ceil((totalGroovedBoards * joistCount * 2) / SCREWS_PER_BOX);
+        hintHtml += `<strong>Fastener suggestion:</strong><br>≈ ${boxesScrews} boxes of screws<br>≈ ${boxesScrews} boxes of plugs`;
+    }
+
+    if (hasSystem && hasStandaloneDex) {
+        hintHtml += '<div class="fastener-warning">AmeriDex System Boards already include Dexerdry. Standalone Dexerdry is typically only needed for non-system decks.</div>';
+    }
+
+    hintEl.style.display = hintHtml ? "block" : "none";
+    hintEl.innerHTML = hintHtml;
+}
+
+function calculateAndSuggest() {
+    deckLengthFt = parseFloat(document.getElementById("deck-len").value) || 0;
+    deckWidthFt = parseFloat(document.getElementById("deck-wid").value) || 0;
+
+    if (deckLengthFt <= 0 || deckWidthFt <= 0) {
+        alert("Please enter both deck length and width greater than 0.");
+        return;
+    }
+
+    const perp = document.getElementById("orientation").value === "perpendicular";
+    const span = perp ? deckLengthFt : deckWidthFt;
+    const run = perp ? deckWidthFt : deckLengthFt;
+
+    const boardsNeeded = Math.ceil((span / EFFECTIVE_FT) * WASTE);
+    let suggestedLength = run <= 12 ? 12 : (run <= 16 ? 16 : 20);
+
+    const msg = `<strong>Suggested AmeriDex System Boards</strong><br>• ${boardsNeeded} boards @ ${suggestedLength} ft each<br>• Total: ${(boardsNeeded * suggestedLength).toFixed(1)} board ft<br>(10% waste included)`;
+    document.getElementById("calc-result").innerHTML = msg;
+
+    if (confirm("Add suggested AmeriDex System Boards to the order?")) {
+        lineItems.push({
+            type: "system",
+            color: selectedColor1,
+            length: suggestedLength,
+            customLength: null,
+            qty: boardsNeeded,
+            priceOverride: null,
+            customDesc: "",
+            customUnitPrice: 0
+        });
+        deletedItems = [];
+        render();
+        updateTotalAndFasteners();
+        updateUndoButton();
+    }
+}
+
+function validateRequired() {
+    const fields = [
+        { id: "cust-name", msg: "customer name" },
+        { id: "cust-email", msg: "customer email" },
+        { id: "cust-phone", msg: "customer phone" },
+        { id: "cust-address", msg: "customer address" }
+    ];
+
+    for (const f of fields) {
+        if (!document.getElementById(f.id).value.trim()) {
+            alert("Please enter " + f.msg + ".");
+            document.getElementById(f.id).focus();
+            return false;
+        }
+    }
+
+    if (lineItems.length === 0) {
+        alert("Please add at least one line item.");
+        return false;
+    }
+    return true;
+}
+
+function generateOrderText(includeInternal = true) {
+    const today = new Date().toLocaleDateString();
+    let txt = "AMERIDEX ORDER / QUOTE\n";
+    txt += "Date: " + today + "\n\n";
+
+    txt += "CUSTOMER INFORMATION\n";
+    txt += "Name: " + document.getElementById("cust-name").value + "\n";
+    const company = document.getElementById("cust-company").value;
+    if (company) txt += "Company: " + company + "\n";
+    txt += "Address: " + document.getElementById("cust-address").value.replace(/\n/g, ", ") + "\n";
+    txt += "Phone: " + document.getElementById("cust-phone").value + "\n";
+    txt += "Email: " + document.getElementById("cust-email").value + "\n\n";
+
+    if (document.getElementById("pic-frame").checked) txt += "* Picture Framing Required\n";
+    if (document.getElementById("stairs").checked) txt += "* Stairs Required\n";
+    if (document.getElementById("pic-frame").checked || document.getElementById("stairs").checked) txt += "\n";
+
+    txt += "LINE ITEMS:\n\n";
+    lineItems.forEach((item, i) => {
+        const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+        const price = getItemPrice(item);
+        const sub = getItemSubtotal(item);
+        let desc = item.type === "custom" && item.customDesc ? item.customDesc : prod.name;
+        if (prod.hasColor && item.color) desc += " (" + item.color + ")";
+
+        txt += (i + 1) + ". " + desc + "\n";
+        if (item.type === "dexerdry") {
+            txt += "   Box: " + item.length + " ft | Qty: " + item.qty + " | Total: " + (item.length * item.qty) + " ft\n";
+        } else if (prod.isFt) {
+            txt += "   Length: " + getItemLength(item) + " ft | Qty: " + item.qty + " | @ $" + price.toFixed(2) + "/ft\n";
+        } else {
+            txt += "   Qty: " + item.qty + " | @ $" + price.toFixed(2) + " each\n";
+        }
+        txt += "   Subtotal: $" + sub.toFixed(2) + "\n\n";
+    });
+
+    txt += "ESTIMATED TOTAL: " + document.getElementById("grand-total").textContent + "\n\n";
+
+    const special = document.getElementById("special-instr").value;
+    if (special) txt += "SPECIAL INSTRUCTIONS:\n" + special + "\n\n";
+
+    if (includeInternal) {
+        const internal = document.getElementById("internal-notes").value;
+        if (internal) txt += "INTERNAL NOTES:\n" + internal + "\n\n";
+    }
+
+    const ship = document.getElementById("ship-addr").value;
+    if (ship) txt += "SHIPPING ADDRESS:\n" + ship.replace(/\n/g, ", ") + "\n\n";
+
+    const delDate = document.getElementById("del-date").value;
+    if (delDate) txt += "PREFERRED DELIVERY DATE: " + delDate + "\n\n";
+
+    txt += "www.ameridex.com\n";
+    return txt;
+}
+
+function submitOrder() {
+    if (!validateRequired()) return;
+
+    const orderText = generateOrderText(true);
+    const customerName = document.getElementById("cust-name").value;
+    const subject = "AmeriDex Quote - " + customerName;
+
+    // First, copy to clipboard
+    navigator.clipboard.writeText(orderText).then(() => {
+        // Then try to open email
+        const mailto = "mailto:orders@ameridex.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(orderText);
+
+        // Create a hidden link and click it (more reliable than window.location)
+        const link = document.createElement("a");
+        link.href = mailto;
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show fallback instructions after a short delay
+        setTimeout(() => {
+            document.getElementById("email-fallback").style.display = "block";
+        }, 500);
+
+        document.getElementById("success-msg").style.display = "block";
+
+    }).catch(() => {
+        // If clipboard fails, still try email
+        window.location.href = "mailto:orders@ameridex.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(orderText);
+        document.getElementById("email-fallback").style.display = "block";
+    });
+}
+
+function showReview() {
+    if (!validateRequired()) return;
+
+    document.getElementById("review-name").textContent = document.getElementById("cust-name").value;
+    document.getElementById("review-email").textContent = document.getElementById("cust-email").value;
+    document.getElementById("review-phone").textContent = document.getElementById("cust-phone").value;
+    document.getElementById("email-fallback").style.display = "none";
+
+    const reviewItems = document.getElementById("review-items");
+    reviewItems.innerHTML = "";
+    lineItems.forEach((item, i) => {
+        const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+        const sub = getItemSubtotal(item);
+        let desc = item.type === "custom" && item.customDesc ? item.customDesc : prod.name;
+        if (prod.hasColor && item.color) desc += " (" + item.color + ")";
+
+        let detail = "";
+        if (item.type === "dexerdry") {
+            detail = ` - ${item.qty} x ${item.length}ft box (${item.length * item.qty} ft)`;
+        } else if (prod.isFt) {
+            detail = ` - ${item.qty} x ${getItemLength(item)}ft`;
+        } else {
+            detail = ` - Qty: ${item.qty}`;
+        }
+
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "review-item";
+        itemDiv.innerHTML = `<span class="review-item-label">${i + 1}. ${desc}${detail}</span><span>$${sub.toFixed(2)}</span>`;
+        reviewItems.appendChild(itemDiv);
+    });
+
+    document.getElementById("review-total").textContent = document.getElementById("grand-total").textContent;
+    reviewModal.classList.add("active");
+}
+
+function generatePDF() {
+    if (!validateRequired()) return;
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 20;
+    let y = 20;
+
+    doc.setFontSize(20);
+    doc.setTextColor(37, 99, 235);
+    doc.text("AmeriDex Quote", pageWidth / 2, y, { align: "center" });
+    y += 10;
+
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text("Date: " + new Date().toLocaleDateString(), pageWidth / 2, y, { align: "center" });
+    y += 15;
+
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.setFont(undefined, "bold");
+    doc.text("Customer Information", margin, y);
+    y += 7;
+
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(10);
+    doc.text("Name: " + document.getElementById("cust-name").value, margin, y); y += 5;
+    doc.text("Email: " + document.getElementById("cust-email").value, margin, y); y += 5;
+    doc.text("Phone: " + document.getElementById("cust-phone").value, margin, y); y += 5;
+
+    const addressLines = doc.splitTextToSize("Address: " + document.getElementById("cust-address").value, pageWidth - 2 * margin);
+    doc.text(addressLines, margin, y);
+    y += addressLines.length * 5 + 10;
+
+    doc.setFontSize(12);
+    doc.setFont(undefined, "bold");
+    doc.text("Order Items", margin, y);
+    y += 7;
+
+    doc.setFontSize(10);
+    doc.setFont(undefined, "normal");
+
+    lineItems.forEach((item, i) => {
+        if (y > 260) { doc.addPage(); y = 20; }
+
+        const prod = PRODUCTS[item.type] || PRODUCTS.custom;
+        const sub = getItemSubtotal(item);
+        let desc = item.type === "custom" && item.customDesc ? item.customDesc : prod.name;
+        if (prod.hasColor && item.color) desc += " (" + item.color + ")";
+
+        const descLines = doc.splitTextToSize((i + 1) + ". " + desc, pageWidth - 2 * margin - 40);
+        doc.text(descLines, margin, y);
+        doc.text("$" + sub.toFixed(2), pageWidth - margin, y, { align: "right" });
+        y += descLines.length * 5;
+
+        doc.setTextColor(100);
+        if (item.type === "dexerdry") {
+            doc.text("   " + item.qty + " x " + item.length + "ft box = " + (item.length * item.qty) + " ft", margin, y);
+        } else if (prod.isFt) {
+            doc.text("   " + getItemLength(item) + " ft x " + item.qty + " @ $" + getItemPrice(item).toFixed(2) + "/ft", margin, y);
+        } else {
+            doc.text("   Qty: " + item.qty + " @ $" + getItemPrice(item).toFixed(2) + " each", margin, y);
+        }
+        doc.setTextColor(0);
+        y += 8;
+    });
+
+    y += 5;
+    doc.setDrawColor(37, 99, 235);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 8;
+
+    doc.setFontSize(14);
+    doc.setFont(undefined, "bold");
+    doc.setTextColor(37, 99, 235);
+    doc.text("Estimated Total: " + document.getElementById("grand-total").textContent, pageWidth - margin, y, { align: "right" });
+
+    for (let i = 1; i <= doc.internal.getNumberOfPages(); i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(150);
+        doc.text("www.ameridex.com", pageWidth / 2, 290, { align: "center" });
+    }
+
+    doc.save("AmeriDex-Quote-" + document.getElementById("cust-name").value.replace(/\s+/g, "-") + ".pdf");
+}
+
+let resizeTimeout;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(render, 250);
+});
+
+// Initialize
+initColorGrid();
+updateColorSelection();
+updateColorComparison();
+render();
+updateTotalAndFasteners();
+updateCustomerProgress();
+</script>
+
+</body>
+</html>
