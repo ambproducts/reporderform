@@ -32,11 +32,7 @@
         line-height: 1.5;
     }
 
-    .page-shell {
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 1.5rem 1.25rem 2.5rem;
-    }
+    .page-shell { max-width: 1120px; margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; }
 
     header.app-header {
         background: linear-gradient(135deg, #2563eb, #1e40af);
@@ -47,24 +43,9 @@
         text-align: center;
     }
 
-    header.app-header img {
-        max-width: 220px;
-        height: auto;
-        display: block;
-        margin: 0 auto 0.75rem;
-    }
-
-    header.app-header h1 {
-        margin: 0.25rem 0 0.5rem;
-        font-size: 1.9rem;
-        letter-spacing: 0.03em;
-    }
-
-    header.app-header p.header-sub {
-        margin: 0.15rem 0 0;
-        font-size: 0.88rem;
-        color: rgba(249, 250, 251, 0.9);
-    }
+    header.app-header img { max-width: 220px; height: auto; display: block; margin: 0 auto 0.75rem; }
+    header.app-header h1 { margin: 0.25rem 0 0.5rem; font-size: 1.9rem; letter-spacing: 0.03em; }
+    header.app-header p.header-sub { margin: 0.15rem 0 0; font-size: 0.88rem; color: rgba(249, 250, 251, 0.9); }
 
     main { margin-top: 1.5rem; }
 
@@ -86,78 +67,22 @@
         align-items: center;
     }
 
-    .card-title {
-        margin: 0;
-        font-size: 1.15rem;
-        font-weight: 700;
-        letter-spacing: 0.01em;
-    }
+    .card-title { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.01em; }
+    .card-subtitle { margin: 0.2rem 0 0; font-size: 0.88rem; color: var(--text-muted); }
 
-    .card-subtitle {
-        margin: 0.2rem 0 0;
-        font-size: 0.88rem;
-        color: var(--text-muted);
-    }
-
-    .progress-badge {
-        display: inline-block;
-        background: var(--success);
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-    }
-
+    .progress-badge { display: inline-block; background: var(--success); color: white; padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
     .progress-badge.incomplete { background: var(--warning); }
 
-    .form-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0.9rem 1.25rem;
-    }
+    .form-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.9rem 1.25rem; }
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-row-2 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.9rem 1.25rem; }
+    @media (min-width: 768px) { .field-row-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 
-    .field {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-    }
+    label { font-size: 0.9rem; font-weight: 600; color: #374151; }
+    .required-indicator { color: var(--danger); margin-left: 0.15rem; }
+    .help-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; line-height: 1.4; }
 
-    .field-row-2 {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0.9rem 1.25rem;
-    }
-
-    @media (min-width: 768px) {
-        .field-row-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-    }
-
-    label {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #374151;
-    }
-
-    .required-indicator {
-        color: var(--danger);
-        margin-left: 0.15rem;
-    }
-
-    .help-text {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-top: 0.2rem;
-        line-height: 1.4;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
-    input[type="date"],
-    textarea,
-    select {
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], textarea, select {
         width: 100%;
         padding: 0.68rem 0.7rem;
         border-radius: var(--radius-field);
@@ -177,46 +102,106 @@
 
     textarea { min-height: 90px; resize: vertical; }
     .error { font-size: 0.78rem; color: var(--danger); margin-top: 0.1rem; }
-    .hint { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.15rem; }
 
     .inline-checks { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
     .check-row { display: flex; align-items: center; gap: 0.5rem; }
     .check-row input[type="checkbox"] { width: 16px; height: 16px; }
     .note-inline { margin-left: 1.6rem; font-size: 0.82rem; color: #b45309; }
 
-    .color-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+    /* Deck Diagram Styles */
+    .deck-diagram-container { margin-bottom: 1.5rem; }
+    .deck-diagram { position: relative; width: 100%; max-width: 280px; margin: 0 auto; }
+    .house-wall {
+        background: linear-gradient(180deg, #78716c 0%, #57534e 100%);
+        color: white;
+        text-align: center;
+        padding: 0.6rem;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        border-radius: 4px 4px 0 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-
-    .color-card {
-        border: 2px solid transparent;
-        border-radius: 10px;
+    .deck-area {
+        position: relative;
+        background: linear-gradient(135deg, #d4a574 0%, #c4956a 100%);
+        border: 3px solid #a67c52;
+        border-top: none;
+        height: 140px;
+        border-radius: 0 0 8px 8px;
         overflow: hidden;
-        cursor: pointer;
-        transition: all 0.2s ease;
+    }
+    .dimension-arrow {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #1e40af;
+    }
+    .dim-along {
+        top: 8px;
+        left: 10px;
+        right: 10px;
+        justify-content: center;
+    }
+    .dim-along::before, .dim-along::after {
+        content: '';
+        flex: 1;
+        height: 2px;
+        background: #1e40af;
+    }
+    .dim-along::before { margin-right: 6px; }
+    .dim-along::after { margin-left: 6px; }
+    .dim-out {
+        top: 30px;
+        bottom: 10px;
+        right: 12px;
+        flex-direction: column;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+    }
+    .dim-out::before, .dim-out::after {
+        content: '';
+        flex: 1;
+        width: 2px;
+        background: #1e40af;
+    }
+    .dim-out::before { margin-bottom: 4px; }
+    .dim-out::after { margin-top: 4px; }
+    .dim-label-bg {
+        background: rgba(255,255,255,0.95);
+        padding: 0.15rem 0.35rem;
+        border-radius: 3px;
+        white-space: nowrap;
+    }
+    .board-lines {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+    .board-lines.perpendicular {
+        background: repeating-linear-gradient(90deg, transparent, transparent 16px, rgba(139, 90, 43, 0.5) 16px, rgba(139, 90, 43, 0.5) 18px);
+    }
+    .board-lines.parallel {
+        background: repeating-linear-gradient(0deg, transparent, transparent 16px, rgba(139, 90, 43, 0.5) 16px, rgba(139, 90, 43, 0.5) 18px);
+    }
+    .diagram-legend {
+        text-align: center;
+        margin-top: 0.6rem;
+        font-size: 0.75rem;
+        color: var(--text-muted);
     }
 
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 1rem; margin-top: 1rem; margin-bottom: 1rem; }
+    .color-card { border: 2px solid transparent; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.2s ease; }
     .color-card:hover { border-color: var(--primary); transform: translateY(-2px); }
     .color-card.selected { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
     .color-card img { width: 100%; height: 80px; object-fit: cover; border-radius: 8px; }
     .color-card-label { text-align: center; font-size: 0.8rem; font-weight: 600; margin-top: 0.4rem; color: var(--text-main); }
 
-    .comparison-panel {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
-        padding: 1rem;
-        background: #f9fafb;
-        border-radius: 10px;
-    }
-
+    .comparison-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; padding: 1rem; background: #f9fafb; border-radius: 10px; }
     @media (max-width: 768px) { .comparison-panel { grid-template-columns: 1fr; } }
-
     .color-preview { text-align: center; }
     .color-preview h4 { margin-top: 0; font-size: 0.9rem; }
     .color-preview img { width: 100%; max-width: 200px; border-radius: 10px; border: 2px solid var(--border-subtle); }
@@ -351,37 +336,50 @@
                 <div class="card-header">
                     <div>
                         <h2 class="card-title">Deck Calculator</h2>
-                        <p class="card-subtitle">Let us suggest the right boards for your deck size.</p>
+                        <p class="card-subtitle">Enter your deck dimensions relative to your house.</p>
                     </div>
                 </div>
 
                 <div class="form-grid">
+                    <!-- Visual Diagram -->
+                    <div class="deck-diagram-container">
+                        <div class="deck-diagram">
+                            <div class="house-wall">HOUSE</div>
+                            <div class="deck-area">
+                                <div class="dimension-arrow dim-along"><span class="dim-label-bg">Along House</span></div>
+                                <div class="dimension-arrow dim-out"><span class="dim-label-bg">From House</span></div>
+                                <div class="board-lines perpendicular" id="board-lines-preview"></div>
+                            </div>
+                        </div>
+                        <div class="diagram-legend">Board direction updates based on your selection below</div>
+                    </div>
+
                     <div class="field-row-2">
                         <div class="field">
-                            <label for="deck-len">Deck Length (ft)<span class="required-indicator">*</span></label>
-                            <input type="number" id="deck-len" step="0.1" min="0">
-                            <div class="help-text">Total length of your deck</div>
+                            <label for="deck-len">Distance Along House (ft)<span class="required-indicator">*</span></label>
+                            <input type="number" id="deck-len" step="0.1" min="0" placeholder="e.g., 20">
+                            <div class="help-text">How wide is your deck running parallel to the house wall?</div>
                         </div>
                         <div class="field">
-                            <label for="deck-wid">Deck Width (ft)<span class="required-indicator">*</span></label>
-                            <input type="number" id="deck-wid" step="0.1" min="0">
-                            <div class="help-text">Total width of your deck</div>
+                            <label for="deck-wid">Distance From House (ft)<span class="required-indicator">*</span></label>
+                            <input type="number" id="deck-wid" step="0.1" min="0" placeholder="e.g., 10">
+                            <div class="help-text">How far does your deck extend out into the yard?</div>
                         </div>
                     </div>
 
                     <div class="field-row-2">
                         <div class="field">
-                            <label for="orientation">Board Orientation</label>
+                            <label for="orientation">Board Direction</label>
                             <select id="orientation">
-                                <option value="parallel">Parallel to Length</option>
-                                <option value="perpendicular" selected>Perpendicular to Length</option>
+                                <option value="perpendicular" selected>Perpendicular to House (boards run away from house)</option>
+                                <option value="parallel">Parallel to House (boards run along house wall)</option>
                             </select>
-                            <div class="help-text">Direction boards run across deck</div>
+                            <div class="help-text" id="orientation-help">Boards will run away from the house, toward the yard</div>
                         </div>
                         <div class="field">
                             <label for="waste-pct">Waste Percentage (optional)</label>
-                            <input type="number" id="waste-pct" step="1" min="0" max="50" placeholder="0">
-                            
+                            <input type="number" id="waste-pct" step="1" min="0" max="50" placeholder="10">
+                            <div class="help-text">Leave blank for 10% default</div>
                         </div>
                     </div>
 
@@ -730,9 +728,27 @@ function updateCustomerProgress() {
     badge.classList.toggle("incomplete", completed !== 4);
 }
 
+// Update diagram when orientation changes
+function updateDiagramOrientation() {
+    const orientation = document.getElementById("orientation").value;
+    const boardLines = document.getElementById("board-lines-preview");
+    const helpText = document.getElementById("orientation-help");
+
+    if (orientation === "perpendicular") {
+        boardLines.className = "board-lines perpendicular";
+        helpText.textContent = "Boards will run away from the house, toward the yard";
+    } else {
+        boardLines.className = "board-lines parallel";
+        helpText.textContent = "Boards will run along the house wall, left to right";
+    }
+}
+
 ["cust-name", "cust-address", "cust-phone", "cust-email"].forEach(id => {
     document.getElementById(id).addEventListener("input", updateCustomerProgress);
 });
+
+// Orientation change listener
+document.getElementById("orientation").addEventListener("change", updateDiagramOrientation);
 
 document.getElementById("add-row").onclick = () => {
     lineItems.push({ type: "system", color: selectedColor1, length: 16, customLength: null, qty: 1, priceOverride: null, customDesc: "", customUnitPrice: 0 });
@@ -781,6 +797,8 @@ document.getElementById("reset").onclick = () => {
     document.getElementById("fastener-hint").innerHTML = "";
     document.getElementById("success-msg").style.display = "none";
     document.getElementById("calc-result-container").style.display = "none";
+    document.getElementById("orientation").value = "perpendicular";
+    updateDiagramOrientation();
 };
 
 document.getElementById("print-btn").onclick = (e) => { e.stopPropagation(); document.getElementById("print-dropdown").classList.toggle("active"); };
@@ -1140,21 +1158,32 @@ function updateTotalAndFasteners() {
     hintEl.innerHTML = hintHtml;
 }
 
-// NEW: Calculate only - does NOT add to order
+// Calculate only - does NOT add to order
+// Uses house-relative terminology for clarity
 function calculateOnly() {
-    deckLengthFt = parseFloat(document.getElementById("deck-len").value) || 0;
-    deckWidthFt = parseFloat(document.getElementById("deck-wid").value) || 0;
+    // "Along house" = the dimension parallel to the house wall
+    // "From house" = the dimension extending away from house into yard
+    const alongHouse = parseFloat(document.getElementById("deck-len").value) || 0;
+    const fromHouse = parseFloat(document.getElementById("deck-wid").value) || 0;
 
-    if (deckLengthFt <= 0 || deckWidthFt <= 0) {
-        alert("Please enter both deck length and width greater than 0.");
+    if (alongHouse <= 0 || fromHouse <= 0) {
+        alert("Please enter both dimensions greater than 0.");
         return;
     }
 
-    const perp = document.getElementById("orientation").value === "perpendicular";
-    // FIXED: span = dimension each board must cover (board length direction)
-    // run = dimension across which boards are laid (determines number of boards)
-    const span = perp ? deckLengthFt : deckWidthFt;
-    const run = perp ? deckWidthFt : deckLengthFt;
+    // Store for global use
+    deckLengthFt = alongHouse;
+    deckWidthFt = fromHouse;
+
+    const orientation = document.getElementById("orientation").value;
+    // perpendicular = boards run away from house (span = fromHouse dimension)
+    // parallel = boards run along house (span = alongHouse dimension)
+    const isPerpendicular = orientation === "perpendicular";
+
+    // span = the length each board must cover
+    // run = the dimension across which boards are laid (determines number of boards)
+    const span = isPerpendicular ? fromHouse : alongHouse;
+    const run = isPerpendicular ? alongHouse : fromHouse;
 
     // Get waste percentage (default 10%)
     const wastePctInput = parseFloat(document.getElementById("waste-pct").value);
@@ -1164,7 +1193,7 @@ function calculateOnly() {
     // Number of boards needed = run / effective board width * waste
     const boardsNeeded = Math.ceil((run / EFFECTIVE_FT) * wasteMultiplier);
 
-    // FIXED: Board length based on span (the length each board covers)
+    // Board length based on span (the length each board covers)
     let suggestedLength = span <= 12 ? 12 : (span <= 16 ? 16 : 20);
 
     // Store for later use when adding to order
@@ -1175,18 +1204,28 @@ function calculateOnly() {
     };
 
     const totalBoardFt = boardsNeeded * suggestedLength;
-    const msg = "<strong>Deck Dimensions:</strong> " + deckLengthFt + " ft x " + deckWidthFt + " ft<br>" +
-        "<strong>Board Orientation:</strong> " + (perp ? "Perpendicular to length" : "Parallel to length") + "<br>" +
-        "<strong>Board Length Needed:</strong> " + span + " ft (span) -> Suggested: " + suggestedLength + " ft boards<br>" +
-        "<strong>Quantity:</strong> " + boardsNeeded + " boards<br>" +
-        "<strong>Total:</strong> " + totalBoardFt.toFixed(1) + " board ft<br>" +
-        "<strong>Waste:</strong> " + wastePct + "% included";
+
+    // Build user-friendly message with house-relative terms
+    const orientationText = isPerpendicular 
+        ? "Perpendicular to house (boards run away from house)" 
+        : "Parallel to house (boards run along house wall)";
+
+    const spanExplanation = isPerpendicular
+        ? "Each board spans " + fromHouse + " ft (from house to yard edge)"
+        : "Each board spans " + alongHouse + " ft (along the house wall)";
+
+    const msg = "<strong>Deck Size:</strong> " + alongHouse + " ft along house x " + fromHouse + " ft from house<br>" +
+        "<strong>Board Direction:</strong> " + orientationText + "<br>" +
+        "<strong>Board Length:</strong> " + spanExplanation + "<br>" +
+        "&nbsp;&nbsp;&nbsp;&nbsp;Suggested board length: <strong>" + suggestedLength + " ft</strong><br>" +
+        "<strong>Quantity:</strong> " + boardsNeeded + " boards (includes " + wastePct + "% waste)<br>" +
+        "<strong>Total Board Feet:</strong> " + totalBoardFt.toFixed(0) + " ft";
 
     document.getElementById("calc-result").innerHTML = msg;
     document.getElementById("calc-result-container").style.display = "block";
 }
 
-// NEW: Add suggestion to order - separate action from calculate
+// Add suggestion to order - separate action from calculate
 function addSuggestionToOrder() {
     if (!lastCalculation) {
         alert("Please calculate first.");
@@ -1280,7 +1319,7 @@ function submitOrder() {
     const customerName = document.getElementById("cust-name").value;
     const subject = "AmeriDex Quote - " + customerName;
     navigator.clipboard.writeText(orderText).then(() => {
-        const mailto = "mailto:sales@ameridex.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(orderText);
+        const mailto = "mailto:saless@ameridex.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(orderText);
         const link = document.createElement("a"); link.href = mailto; link.style.display = "none";
         document.body.appendChild(link); link.click(); document.body.removeChild(link);
         setTimeout(() => { document.getElementById("email-fallback").style.display = "block"; }, 500);
@@ -1370,6 +1409,7 @@ window.addEventListener("resize", () => { clearTimeout(resizeTimeout); resizeTim
 initColorGrid();
 updateColorSelection();
 updateColorComparison();
+updateDiagramOrientation();
 render();
 updateTotalAndFasteners();
 updateCustomerProgress();
