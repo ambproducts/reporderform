@@ -1186,8 +1186,8 @@ function calculateOnly() {
     const run = isPerpendicular ? alongHouse : fromHouse;
 
     // Get waste percentage (default 10%)
-    const wastePctInput = parseFloat(document.getElementById("waste-pct").value);
-    const wastePct = (wastePctInput > 0 && wastePctInput <= 50) ? wastePctInput : 10;
+    const wastePctInput = document.getElementById("waste-pct").value.trim();
+    const wastePct = wastePctInput === "" ? 0 : (parseFloat(wastePctInput) || 0);
     const wasteMultiplier = 1 + (wastePct / 100);
 
     // Number of boards needed = run / effective board width * waste
