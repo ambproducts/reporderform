@@ -1,0 +1,17 @@
+.modal { display: none; position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.55); z-index: 50; justify-content: center; align-items: center; padding: 1.25rem; overflow-y: auto; }
+.modal.active { display: flex; }
+.modal-content { background: #ffffff; padding: 1.25rem; border-radius: 12px; max-width: 90%; max-height: 90vh; text-align: center; position: relative; box-shadow: var(--shadow-soft); overflow-y: auto; }
+.modal-content img { max-width: 100%; max-height: 70vh; border-radius: 10px; }
+.modal-close { position: absolute; top: 10px; right: 12px; font-size: 1.5rem; cursor: pointer; color: #6b7280; background: none; border: none; padding: 0.5rem; }
+.modal-close:hover { color: #111827; }
+
+.review-modal-content { text-align: left; max-width: 600px; }
+.review-section { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); }
+.review-section h3 { margin: 0 0 0.75rem 0; font-size: 1rem; color: var(--primary); }
+.review-item { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.review-item-label { color: var(--text-muted); font-weight: 600; }
+.review-total { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--primary); }
+
+.email-fallback-notice { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem; margin-top: 1rem; font-size: 0.85rem; color: #92400e; }
+.email-fallback-notice p { margin: 0 0 0.5rem 0; }
+.email-fallback-notice .email-link { color: var(--primary); font-weight: 600; }
