@@ -1,6 +1,6 @@
 table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
 thead { background-color: #f9fafb; }
-th, td { border: 1px solid var(--border-subtle); padding: 0.55rem 0.5rem; vertical-top: top; }
+th, td { border: 1px solid var(--border-subtle); padding: 0.55rem 0.5rem; vertical-align: top; }
 th { font-weight: 600; color: #4b5563; text-align: left; font-size: 0.84rem; }
 th.numeric, td.numeric { text-align: right; }
 
