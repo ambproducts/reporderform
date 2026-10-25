@@ -1,6 +1,6 @@
 // ============================================================
 // pricing.js — Price calculation helpers and fastener hints
-// Depends on: config.js, state.js
+// Depends on: config.js, state.js, takeoff.js
 // ============================================================
 
 function getItemLength(item) {
@@ -51,10 +51,24 @@ function updateTotalAndFasteners() {
 
     const hintEl = document.getElementById("fastener-hint");
     let hintHtml = "";
-    if (totalGroovedBoards > 0 && deckLengthFt > 0) {
-        const joistCount = Math.floor(deckLengthFt * 12 / 16) + 1;
-        const boxesScrews = Math.ceil((totalGroovedBoards * joistCount * 2) / SCREWS_PER_BOX);
-        hintHtml += "<strong>Fastener suggestion:</strong><br>Approx " + boxesScrews + " boxes of screws<br>Approx " + boxesScrews + " boxes of plugs";
+    if (totalGroovedBoards > 0 && deckLengthFt > 0 && deckWidthFt > 0) {
+        const orientationEl = document.getElementById("orientation");
+        const boardDirection = orientationEl ? orientationEl.value : "perpendicular";
+        const spacingIn = (typeof JOIST_SPACING_IN === "number") ? JOIST_SPACING_IN : 16;
+        const plugsEl = document.getElementById("starborn-plugs");
+        const plugsOn = plugsEl ? plugsEl.checked : true;
+        const takeoff = starbornFastenerTakeoff({
+            boardCount: totalGroovedBoards,
+            alongFt: deckLengthFt,
+            outFt: deckWidthFt,
+            boardDirection: boardDirection,
+            spacingIn: spacingIn,
+            plugsOn: plugsOn
+        });
+        hintHtml += "<strong>Starborn screws:</strong> Approx " + takeoff.screwBoxes + " boxes of Starborn screws";
+        if (plugsOn) {
+            hintHtml += "<br><strong>Starborn plugs:</strong> Approx " + takeoff.plugBoxes + " boxes of Starborn plugs";
+        }
     }
     if (hasSystem && hasStandaloneDex) {
         hintHtml += '<div class="fastener-warning">AmeriDex System Boards already include Dexerdry. Standalone Dexerdry is typically only needed for non-system decks.</div>';

@@ -20,7 +20,10 @@ function updateCustomerProgress() {
 });
 
 // --- Orientation diagram ---
-document.getElementById("orientation").addEventListener("change", updateDiagramOrientation);
+document.getElementById("orientation").addEventListener("change", () => {
+    updateDiagramOrientation();
+    updateTotalAndFasteners();
+});
 
 // --- Line items ---
 document.getElementById("add-row").onclick = () => {
@@ -78,6 +81,7 @@ document.getElementById("reset").onclick = () => {
     document.getElementById("success-msg").style.display = "none";
     document.getElementById("calc-result-container").style.display = "none";
     document.getElementById("orientation").value = "perpendicular";
+    document.getElementById("starborn-plugs").checked = true;
     updateDiagramOrientation();
 };
 
@@ -107,6 +111,8 @@ document.getElementById("review-copy").onclick = () => {
         document.getElementById(id + "-note").style.display = e.target.checked ? "block" : "none";
     });
 });
+
+document.getElementById("starborn-plugs").addEventListener("change", updateTotalAndFasteners);
 
 // --- Responsive re-render on resize ---
 let resizeTimeout;

@@ -20,10 +20,10 @@ const PRODUCT_CONFIG = {
             }
         },
         fasteners: {
-            label: "Fasteners & Hardware",
+            label: "Starborn screws and Starborn plugs",
             products: {
-                screws: { name: "Epoxy-Coated Screws", price: 37.00, isFt: false, hasColor: false, help: "Per box (375 screws)." },
-                plugs: { name: "Color-Matching Plugs", price: 33.79, isFt: false, hasColor: false, help: "Per box." }
+                screws: { name: "Starborn screws", price: 37.00, isFt: false, hasColor: false, help: "Per box (375 Starborn screws)." },
+                plugs: { name: "Starborn plugs", price: 33.79, isFt: false, hasColor: false, help: "Per box (375 Starborn plugs)." }
             }
         },
         Hardware: {
@@ -68,3 +68,5 @@ const GAP_INCH = 0.125;
 const EFFECTIVE_FT = (BOARD_WIDTH_INCH + GAP_INCH) / 12;
 
 const SCREWS_PER_BOX = 375;
+const PLUGS_PER_BOX = 375;
+const JOIST_SPACING_IN = 16;
