@@ -51,6 +51,7 @@ function calculateOnly() {
 
     document.getElementById("calc-result").innerHTML = msg;
     document.getElementById("calc-result-container").style.display = "block";
+    updateTotalAndFasteners();
 }
 
 function addSuggestionToOrder() {

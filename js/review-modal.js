@@ -92,7 +92,7 @@ function submitOrder() {
     const customerName = document.getElementById("cust-name").value;
     const subject = "AmeriDex Quote - " + customerName;
     navigator.clipboard.writeText(orderText).then(() => {
-        const mailto = "mailto:saless@ameridex.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(orderText);
+        const mailto = "mailto:sales@ameridex.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(orderText);
         const link = document.createElement("a"); link.href = mailto; link.style.display = "none";
         document.body.appendChild(link); link.click(); document.body.removeChild(link);
         setTimeout(() => { document.getElementById("email-fallback").style.display = "block"; }, 500);
